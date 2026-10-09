@@ -1,0 +1,41 @@
+# Render Blueprint for the ChatPDF FastAPI backend.
+# Push this file to your repo, then in Render: "New +" → "Blueprint" → pick the repo.
+#
+# After the service is created, set the secrets listed under `envVars` in the
+# Render dashboard (they are intentionally left blank here so they aren't
+# committed to git). The placeholder for CORS_ORIGINS must include your
+# Vercel deployment URL once the frontend is live.
+
+services:
+  - type: web
+    name: chatpdf-backend
+    plan: free          # 512 MB RAM; sleeps after 15 min of inactivity
+    runtime: python
+    region: oregon      # change if you want a different region
+    rootDir: backend
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MONGODB_URI
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: pdfs
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRY_HOURS
+        value: "72"
+      - key: CORS_ORIGINS
+        # Set this to "https://your-app.vercel.app,http://localhost:3000" via the dashboard
+        sync: false

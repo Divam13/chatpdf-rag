@@ -1,0 +1,34 @@
+# --- secrets ---
+.env
+.env.*
+!.env.example
+
+# --- python ---
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.pytest_cache/
+
+# --- legacy on-disk index from the FAISS era — superseded by Supabase pgvector ---
+faiss_db/
+user_indexes/
+routes/user_indexes/
+
+# --- local sample data / scratch ---
+data.pdf
+*.tmp
+tmp/
+
+# --- editor / OS ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
